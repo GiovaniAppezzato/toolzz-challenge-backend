@@ -20,6 +20,10 @@ class Message extends Model
         'content'
     ];
 
+    protected $casts = [
+        'is_read' => 'boolean'
+    ];
+
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
