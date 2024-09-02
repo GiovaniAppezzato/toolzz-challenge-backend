@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     {
         // Create a default user for testing purposes
         User::query()->create([
-            'name' => 'Root',
-            'email' => 'root@gmail.com',
+            'name' => 'Giovani Appezzato',
+            'email' => 'giovani.appezzato@gmail.com',
             'password' => Hash::make("123456"),
             'created_at' => now(),
             'updated_at' => now(),

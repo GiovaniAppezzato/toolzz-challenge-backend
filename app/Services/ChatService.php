@@ -30,41 +30,32 @@ class ChatService
                         ->where('receiver_id', $user->id);
                 }
             ])
-            ->selectSub(function ($query) {
-                $query->from('messages')
-                    ->select('content')
-                    ->whereColumn('sender_id', 'users.id')
-                    ->orWhereColumn('receiver_id', 'users.id')
-                    ->orderByDesc('created_at')
+            ->with(['messagesSent' => function ($query) use ($user) {
+                $query->where('receiver_id', $user->id)
+                    ->orWhere('sender_id', $user->id)
+                    ->latest('created_at')
                     ->limit(1);
-            }, 'last_message')
+            }, 'messagesReceived' => function ($query) use ($user) {
+                $query->where('sender_id', $user->id)
+                    ->orWhere('receiver_id', $user->id)
+                    ->latest('created_at')
+                    ->limit(1);
+            }])
             ->orderBy('unread_messages_count', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($user) {
+                return $this->addLastMessage($user);
+            });
+    }
 
-        /* return User::query()
-            ->withoutMe()
-            ->when($filters['search'] ?? null, function ($query, $search) {
-                $query->where('name', 'like', "%$search%")
-                    ->orWhere('email', $search);
-            })
-            ->withCount([
-                'messagesSent as unread_messages_count' => function ($query) use($user) {
-                    $query->where('is_read', false)
-                        ->where('receiver_id', $user->id);
-                }
-            ])
-            ->with([
-                'allMessages' => function ($query) use ($user) {
-                    $query->where(function($q) use ($user) {
-                        $q->where('sender_id', $user->id)
-                        ->orWhere('receiver_id', $user->id);
-                    })
-                    ->latest()
-                    ->limit(1);
-                }
-            ])
-            ->orderBy('unread_messages_count', 'desc')
-            ->get(); */
+    protected function addLastMessage($user): User
+    {
+        $user->last_message = $user->messagesSent
+            ->merge($user->messagesReceived)
+            ->sortByDesc('created_at')
+            ->first();
+
+        return $user;
     }
 
     public function getMessages(User $user, ?string $search = null): \Illuminate\Pagination\LengthAwarePaginator
@@ -84,8 +75,12 @@ class ChatService
             })
             ->orderBy('created_at', 'desc');
 
-        // Fix to reverse the messages order and keep the pagination.
-        $paginatedMessages = $query->paginate(25);
-        return $paginatedMessages->setCollection($paginatedMessages->getCollection()->reverse());
+        return $this->paginateReverse($query, 25);
+    }
+
+    private function paginateReverse($query, int $perPage): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        $paginatedData = $query->paginate($perPage);
+        return $paginatedData->setCollection($paginatedData->getCollection()->reverse());
     }
 }

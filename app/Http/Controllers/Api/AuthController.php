@@ -29,7 +29,7 @@ class AuthController extends Controller
 
             return new AuthenticateResource([
                 'access_token' => $user->createToken('auth')->accessToken,
-                'user' => $user
+                'user' => $user->load('photo')
             ], 201);
         }
 
@@ -50,7 +50,7 @@ class AuthController extends Controller
 
             return new AuthenticateResource([
                 'access_token' => $user->createToken('authToken')->accessToken,
-                'user' => $user
+                'user' => $user->load('photo')
             ], 201);
         });
     }
