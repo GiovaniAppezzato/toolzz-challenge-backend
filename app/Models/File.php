@@ -29,4 +29,12 @@ class File extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Get the file's path.
+     */
+    public function getPathAttribute()
+    {
+        return asset('storage/files/' . $this->name);
+    }
 }
