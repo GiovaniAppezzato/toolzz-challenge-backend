@@ -49,7 +49,7 @@ class AuthController extends Controller
             $user = User::create($request->validated());
 
             return new AuthenticateResource([
-                'access_token' => $user->createToken('authToken')->accessToken,
+                'access_token' => $user->createToken('auth')->accessToken,
                 'user' => $user->load('photo')
             ], 201);
         });
