@@ -72,14 +72,6 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'receiver_id');
     }
 
-    public function allMessages()
-    {
-        return Message::where(function ($query) {
-            $query->where('sender_id', $this->id)
-                  ->orWhere('receiver_id', $this->id);
-        });
-    }
-
     public function scopeWithoutMe($query)
     {
         return $query->where('id', '!=', Auth::user()->id);
