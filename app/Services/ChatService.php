@@ -62,16 +62,20 @@ class ChatService
     {
         $query = Message::query()
             ->with('sender', 'receiver')
-            ->where(function ($query) use ($user) {
-                $query->where('receiver_id', Auth::user()->id)
-                    ->where('sender_id', $user->id);
-            })
-            ->orWhere(function ($query) use ($user) {
-                $query->where('sender_id', Auth::user()->id)
-                    ->where('receiver_id', $user->id);
-            })
             ->when($search, function ($query, $search) {
                 $query->where('content', 'like', "%$search%");
+            })
+            ->where(function ($query) use ($user) {
+                // Messages i sent to user
+                $query->where(function ($query) use ($user) {
+                    $query->where('receiver_id', Auth::user()->id)
+                        ->where('sender_id', $user->id);
+                })
+                // Messages i received from user
+                ->orWhere(function ($query) use ($user) {
+                    $query->where('sender_id', Auth::user()->id)
+                        ->where('receiver_id', $user->id);
+                });
             })
             ->orderBy('created_at', 'desc');
 
