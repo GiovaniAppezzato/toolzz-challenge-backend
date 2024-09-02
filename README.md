@@ -1,66 +1,224 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <a href="https://www.toolzz.com.br/home" target="_blank"> 
+        <img src="./public/toolzz.webp" width="200" style="margin-bottom: 30px;">    
+    </a>
 </p>
 
-## About Laravel
+## 📝 Introdução
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Olá! Este repositório contém a minha solução para o desafio da Edulabzz/Toolzz. Trata-se de um sistema simples de chat em tempo real utilizando Laravel e Next.js.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Se precisar entrar em contato, você pode me encontrar no [LinkedIn](https://www.linkedin.com/in/giovani-appezzato-414a6424b/), pelo e-mail giovani.appezzato@gmail.com ou no número (19) 99494-7867.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Versão em produção: https://giovani-appezzato-challenge-toolzz.vercel.app/sign-in
 
-## Learning Laravel
+Deploy da api: https://giovani-appezzato.com.br/api/test-connection
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Começando
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Siga as **instruções** abaixo para configurar o ambiente e rodar o backend do projeto localmente. Existem duas formas de instalar o projeto: com Docker utilizando Laravel Sail e sem Docker.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 📋 Pré-requisitos
 
-## Laravel Sponsors
+Antes de começar, verifique se você possui as seguintes dependências instaladas. Caso contrário, faça o download e instale-as para prosseguir:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* [Git](https://git-scm.com/downloads) 
+* [NPM](https://www.npmjs.com/)
+* [Composer](https://getcomposer.org/)
+* [PHP ^8.3](https://www.php.net/releases/8.3/en.php)
+* [Docker (Opcional)](https://www.docker.com/)
 
-### Premium Partners
+### 🐳 Instalação (com Docker e Laravel Sail)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Se você optar por rodar o projeto usando Docker, essa é a abordagem recomendada, especialmente se estiver em um ambiente Linux. Para usuários do Windows, é necessário utilizar o [WSL 2 (Windows Subsystem for Linux)](https://learn.microsoft.com/pt-br/windows/wsl/install)  em conjunto com o Docker Desktop. Caso contrário, pule para a instalação do projeto sem o Docker.
 
-## Contributing
+1. Clone o repositório:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+``` bash
+git clone https://github.com/GiovaniAppezzato/toolzz-challenge-backend
+```
 
-## Code of Conduct
+2. Navegue até a pasta do projeto e execute o comando para instalar todas as dependências necessárias:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+``` bash
+composer install
+```
 
-## Security Vulnerabilities
+Caso não tenha o Composer instalado localmente, você pode utilizar o seguinte comando para instalar as dependências diretamente no container do Laravel Sail:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
-## License
+3. Crie o arquivo de configuração copiando o exemplo fornecido:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+``` bash
+cp .env.example .env
+```
+
+4. Abra o arquivo `.env` e configure as variáveis de ambiente conforme necessário. Certifique-se de configurar corretamente as informações necessárias para a aplicação:
+
+``` bash
+APP_URL=http://localhost
+APP_PORT=8000
+
+...
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+# FORWARD_DB_PORT=33062
+
+..
+
+BROADCAST_CONNECTION=pusher
+
+..
+
+PUSHER_APP_ID=your-pusher-app-id
+PUSHER_APP_KEY=your-pusher-app-key
+PUSHER_APP_SECRET=your-pusher-app-secret
+PUSHER_HOST=
+PUSHER_PORT=443
+PUSHER_SCHEME="https"
+PUSHER_APP_CLUSTER=your-pusher-app-cluster
+```
+
+Descomente a linha FORWARD_DB_PORT caso já tenha um MySQL rodando na porta 3306 da sua máquina.
+
+
+5. Inicie os containers Docker usando o Laravel Sail:
+
+``` bash
+./vendor/bin/sail up -d
+```
+
+6. Crie a APP_KEY do projeto:
+
+``` bash
+./vendor/bin/sail artisan key:generate
+```
+
+7. Execute as migrations para criar as tabelas no banco de dados:
+
+``` bash
+./vendor/bin/sail artisan migrate
+```
+
+8. Crie um link simbólico para visualizar os uploads pelo frontend:
+
+``` bash
+./vendor/bin/sail artisan storage:link
+```
+
+9. Por último, execute os comandos abaixo para adicionar a configuração do Laravel Passport:
+
+``` bash
+./vendor/bin/sail artisan passport:keys 
+
+./vendor/bin/sail artisan passport:client --personal
+```
+
+10. Pronto! o projeto estará rodando em um ambiente Dockerizado, pronto para ser utilizado localmente acessando o [localhost](http://localhost:8000)
+
+### 🔧 Instalação (sem Docker)
+
+1. Clone o repositório:
+
+``` bash
+git clone https://github.com/GiovaniAppezzato/toolzz-challenge-backend
+```
+
+2. Instale as dependências necessárias:
+
+``` bash
+composer install
+```
+
+3. Crie o arquivo de configuração copiando o exemplo fornecido:
+
+``` bash
+cp .env.example .env
+```
+
+4. Abra o arquivo `.env` e configure as variáveis de ambiente conforme necessário. Certifique-se de configurar corretamente as informações do banco de dados:
+
+``` bash
+# Fill in these fields with your information
+
+...
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+..
+
+BROADCAST_CONNECTION=pusher
+
+..
+
+PUSHER_APP_ID=your-pusher-app-id
+PUSHER_APP_KEY=your-pusher-app-key
+PUSHER_APP_SECRET=your-pusher-app-secret
+PUSHER_HOST=
+PUSHER_PORT=443
+PUSHER_SCHEME="https"
+PUSHER_APP_CLUSTER=your-pusher-app-cluster
+```
+
+Como alternativa, você pode usar o banco de dados local [SQLite](https://www.sqlite.org/):
+
+``` bash
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+
+5. Crie a APP_KEY do projeto:
+
+``` bash
+php artisan key:generate
+```
+
+6. Execute as migrations para criar as tabelas no banco de dados:
+
+``` bash
+php artisan migrate
+```
+
+7. Crie um link simbólico para conseguir visualizar os uploads:
+
+``` bash    
+php artisan storage:link
+```
+
+8. Inicie o servidor local do Laravel:
+
+``` bash
+php artisan serve
+```
+
+9. Por último, execute os comandos abaixo para adicionar a configuração do Laravel Passport:
+
+``` bash
+php artisan passport:keys 
+
+php artisan passport:client --personal
+```
+
+10. Pronto! O projeto estará rodando localmente no endereço IP fornecido pelo terminal após a inicialização do servidor.
